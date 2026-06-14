@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARC - Android Remote Control</title>
+<style>
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+html {
+font-family: sans-serif;
+-webkit-text-size-adjust: 100%;
+-ms-text-size-adjust: 100%;
+}
+body {
+margin: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+display: block;
+}
+audio,
+canvas,
+progress,
+video {
+display: inline-block;
+vertical-align: baseline;
+}
+audio:not([controls]) {
+display: none;
+height: 0;
+}
+[hidden],
+template {
+display: none;
+}
+/* --- */
+
+* {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+*:before,
+*:after {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+html {
+font-size: 10px;
+
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+font-family: "Tahoma", Arial, sans-serif;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+font-family: inherit;
+font-weight: 500;
+line-height: 1.1;
+color: inherit;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+margin-top: 20px;
+margin-bottom: 10px;
+}
+
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+margin-top: 10px;
+margin-bottom: 10px;
+}
+
+h1,
+.h1 {
+font-size: 36px;
+}
+h2,
+.h2 {
+font-size: 30px;
+}
+h3,
+.h3 {
+font-size: 24px;
+}
+h4,
+.h4 {
+font-size: 18px;
+}
+h5,
+.h5 {
+font-size: 14px;
+}
+h6,
+.h6 {
+font-size: 12px;
+}
+
+p {
+margin: 0 0 10px;
+}
+
+.container {
+padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;
+}
+@media (min-width: 768px) {
+.container {
+width: 750px;
+}
+}
+@media (min-width: 992px) {
+.container {
+width: 970px;
+}
+}
+@media (min-width: 1200px) {
+.container {
+width: 1170px;
+}
+}
+
+
+header {
+position: relative;
+padding: 30px 0;
+color: #d4e3ef;
+text-align: left;
+text-shadow: 0 1px 0 rgba(0,0,0,.1);
+background-color: #6389a8;
+background-image: -webkit-gradient(linear,left top,left bottom,from(#49708f),to(#6389a8));
+background-image: -webkit-linear-gradient(top,#49708f 0,#6389a8 100%);
+background-image: -o-linear-gradient(top,#49708f 0,#6389a8 100%);
+background-image: linear-gradient(to bottom,#49708f 0,#6389a8 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#49708f', endColorstr='#6F5499',
+GradientType=0);
+background-repeat: repeat-x;
+font-size: 24px;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+header h1 {
+
+font-size: 60px;
+line-height: 1;
+margin-top: 0;
+margin-bottom: 0;
+color: #fff;
+}
+
+header p {
+margin-bottom: 0;
+font-weight: 300;
+line-height: 1.4;
+}
+
+h2 {
+font-size: 19px;
+line-height: 25px;
+font-family: 'WOL_SB','Segoe UI Semibold','Segoe UI',Tahoma,Helvetica,sans-serif;
+font-weight: 600;
+margin-bottom: 10px;
+}
+
+.para {
+font-size: 13px;
+line-height: 20px;
+color: #505050;
+margin-bottom: 15px;
+}
+
+table {
+background-color: transparent;
+}
+
+th {
+text-align: left;
+}
+.table {
+width: 100%;
+max-width: 100%;
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+padding: 8px;
+line-height: 1.42857143;
+vertical-align: top;
+border-top: 1px solid #ddd;
+}
+.table > thead > tr > th {
+vertical-align: bottom;
+border-bottom: 2px solid #ddd;
+}
+
+.stream {
+background-color: #f5f5f5;
+
+background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#ffffff));
+background-image: -webkit-linear-gradient(top,#f5f5f5 0,#ffffff 100%);
+background-image: -o-linear-gradient(top,#f5f5f5 0,#ffffff 100%);
+background-image: linear-gradient(to bottom,#f5f5f5 0,#ffffff 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#49708f', endColorstr='#ffffff',
+GradientType=0);
+background-repeat: repeat-x;
+padding: 30px 0;
+text-align: center;
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.btn:hover,
+.btn:focus,
+.btn.focus {
+    color: #333;
+    text-decoration: none;
+}
+.btn:active,
+.btn.active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.focus,
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+    background-image: none;
+}
+.btn-default.disabled,
+.btn-default[disabled],
+fieldset[disabled] .btn-default,
+.btn-default.disabled:hover,
+.btn-default[disabled]:hover,
+fieldset[disabled] .btn-default:hover,
+.btn-default.disabled:focus,
+.btn-default[disabled]:focus,
+fieldset[disabled] .btn-default:focus,
+.btn-default.disabled.focus,
+.btn-default[disabled].focus,
+fieldset[disabled] .btn-default.focus,
+.btn-default.disabled:active,
+.btn-default[disabled]:active,
+fieldset[disabled] .btn-default:active,
+.btn-default.disabled.active,
+.btn-default[disabled].active,
+fieldset[disabled] .btn-default.active {
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.btn-group,
+.btn-group-vertical {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+.btn-group > .btn,
+.btn-group-vertical > .btn {
+    position: relative;
+    float: left;
+}
+.btn-group > .btn:hover,
+.btn-group-vertical > .btn:hover,
+.btn-group > .btn:focus,
+.btn-group-vertical > .btn:focus,
+.btn-group > .btn:active,
+.btn-group-vertical > .btn:active,
+.btn-group > .btn.active,
+.btn-group-vertical > .btn.active {
+    z-index: 2;
+}
+.btn-group .btn + .btn,
+.btn-group .btn + .btn-group,
+.btn-group .btn-group + .btn,
+.btn-group .btn-group + .btn-group {
+    margin-left: -1px;
+}
+
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+    border-radius: 0;
+}
+.btn-group > .btn:first-child {
+    margin-left: 0;
+}
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.btn-group > .btn:last-child:not(:first-child),
+.btn-group > .dropdown-toggle:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.btn-group > .btn-group {
+    float: left;
+}
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
+    border-radius: 0;
+}
+.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,
+.btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.btn-group .dropdown-toggle:active,
+.btn-group.open .dropdown-toggle {
+    outline: 0;
+}
+.btn-group > .btn + .dropdown-toggle {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.btn-group > .btn-lg + .dropdown-toggle {
+    padding-right: 12px;
+    padding-left: 12px;
+}
+.btn-group.open .dropdown-toggle {
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.btn-group.open .dropdown-toggle.btn-link {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.label {
+    display: inline;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+}
+
+.label:empty {
+    display: none;
+}
+
+.label-info {
+    background-color: #b5c1ce;
+}
+
+    .stream .label, .stream .stream__image {
+    margin:30px auto 0;
+    display: inline-block;
+}
+
+
+.stream__image {
+border:1px solid #cacfd2;
+}
+
+    code, kbd, pre, samp {
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    }
+
+
+    kbd {
+    padding: 2px 4px;
+    font-size: 100%;
+    /*color: #fff;*/
+    background-color: #f8f8f8;
+    border-radius: 3px;
+
+    }
+
+</style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>ARC</h1>
+
+        <p>Android Remote Control</p>
+    </div>
+</header>
+<div class="stream">
+    <div class="container">
+        <div class="btn-group" role="group" aria-label="Режим просмотра">
+            <button id="tab_video_hide" type="button" class="btn btn-default active">Нет видео
+            </button>
+            <button id="tab_video_show" type="button" class="btn btn-default">Трансляция видео
+            </button>
+        </div>
+        <div id="stram_container">
+
+        </div>
+    </div>
+</div>
+<div class="container" style="text-align:center">
+    <div id="status" class="label label-info"></div>
+</div>
+<div class="container">
+    <h2>Перемещение автомобиля с помощью клавиатуры</h2>
+
+    <p class="para">После включения функции управления на мобильном устройстве можно перемещать
+        автомобиль, используя клавиатуру.</p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Перемещение автомобиля</th>
+            <th>Сочетание клавиш</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Вверх и влево</td>
+            <td><kbd><kbd>W</kbd> + <kbd>A</kbd></kbd>&nbsp;&nbsp;<kbd>7</kbd></td>
+        </tr>
+        <tr>
+            <td>Вверх</td>
+            <td><kbd>W</kbd>&nbsp;&nbsp;<kbd>8</kbd></td>
+        </tr>
+        <tr>
+            <td>Вверх и вправо</td>
+            <td><kbd><kbd>W</kbd> + <kbd>D</kbd></kbd>&nbsp;&nbsp;<kbd>9</kbd></td>
+        </tr>
+        <tr>
+            <td>Влево</td>
+            <td><kbd>A</kbd>&nbsp;&nbsp;<kbd>4</kbd></td>
+        </tr>
+        <tr>
+            <td>Вправо</td>
+            <td><kbd>D</kbd>&nbsp;&nbsp;<kbd>6</kbd></td>
+        </tr>
+        <tr>
+            <td>Вниз и влево</td>
+            <td><kbd><kbd>S</kbd> + <kbd>A</kbd></kbd>&nbsp;&nbsp;<kbd>1</kbd></td>
+        </tr>
+        <tr>
+            <td>Вниз</td>
+            <td><kbd>S</kbd>&nbsp;&nbsp;<kbd>2</kbd></td>
+        </tr>
+        <tr>
+            <td>Вниз и вправо</td>
+            <td><kbd><kbd>S</kbd> + <kbd>D</kbd></kbd>&nbsp;&nbsp;<kbd>3</kbd></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+        (function() {
+            function getXmlHttp()
+            {
+              var xmlhttp;
+              try {
+                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+              } catch (e) {
+                try {
+                  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (E) {
+                  xmlhttp = false;
+                }
+              }
+              if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+                xmlhttp = new XMLHttpRequest();
+              }
+              return xmlhttp;
+            }
+
+
+            function status(text) {
+                var s = document.getElementById("status");
+                s.innerHTML = text;
+            }
+
+
+            var Sockets = (function() { // class Sockets
+
+              function Sockets() {
+                this.ws = null;
+                this.connection = false;
+                this.connecting = false;
+                this.port = null;
+
+                var _this = this;
+
+                if(null === this.port) {
+                 var req = getXmlHttp();
+
+
+                 req.open('GET','/ws', true);
+                 req.setRequestHeader("Accept","text/plain");
+                 req.setRequestHeader("Accept-Encoding","identity");
+                 req.setRequestHeader("Connection", "close");
+
+                 status("Запрос порта сервера команд...");
+
+                 req.onreadystatechange = function() {
+                      if (req.readyState == 4 && req.status == 200) {
+                          _this.port = req.responseText;
+                          _this.open();
+                      }
+                  };
+                 req.send(null);
+                }
+              }
+
+              Sockets.prototype.close = function() { 
+                if(this.ws !== null) this.ws.close();
+                this.connection = false;
+                this.connecting = false;
+                this.ws = null;
+              }
+
+              Sockets.prototype.open = function() {
+
+                var _this = this;
+                this.connecting = true;
+
+                try {
+                  this.ws = new WebSocket("ws://"+window.location.hostname+":"+this.port+"/");
+
+                 this.ws.onopen = function() {
+                        _this.connection = true;
+                        _this.connecting = false;
+                        
+
+                        status("Подключено");
+                    }
+                  this.ws.onclose = function() {
+                        _this.close();
+                        status("Отключено");
+                    }
+
+                  this.ws.onerror = function(error) {
+                     _this.close();
+                        status("Ошибка: " + error);
+                  }
+                } catch (e) {
+                    this.close();
+                }
+              };
+
+              Sockets.prototype.send = function(msg) {
+                if(this.isConnected()) {
+                    this.ws.send(msg);
+                    return true;
+                }
+
+                return false;
+              }
+
+              Sockets.prototype.isConnected = function() {
+                return (this.ws !== null && this.connection === true);
+              }
+
+              Sockets.prototype.isConnecting = function() {
+                return (this.ws !== null && this.connecting === true);
+              }
+
+              
+
+              return Sockets;
+            
+          })();
+
+          var KeyBind = (function(){ // bind key class
+
+            function KeyBind(keys) {
+              this.bind = {};
+              this.state = {};
+              this.lastKeyDown = 0;
+              this.keys = keys;
+              this.interval = null;
+
+              this.prepare();
+
+              var _this = this;
+
+              function keypress(e) {
+              
+              if(!_this.isBindKey(e)) return;
+
+                var key = e.keyCode;
+
+                switch(e.type) {
+                    case "keydown":
+                        if(!_this.state[key]) {
+                            _this.state[key] = true;
+                        
+                            _this.sendCommand(_this.bind[key + _this.lastKeyDown]);
+                            _this.lastKeyDown = key + _this.lastKeyDown;
+                        }
+                        break;
+                    case "keyup":
+                        
+                        _this.state[key] = false;
+                        _this.lastKeyDown -= key;
+
+                        _this.sendCommand(_this.bind[_this.lastKeyDown ? _this.lastKeyDown : key]);
+
+                        break;
+                }
+              
+              }
+
+              document.addEventListener("keydown", keypress);
+              document.addEventListener("keyup", keypress);              
+            }
+
+            KeyBind.prototype.prepare = function() {
+              for (var k in this.keys) {
+                    if((k.indexOf('+')+1)) {
+                        var arr = k.split('+'), hash = 0;
+                        for(var j in arr) {
+                            hash += arr[j].charCodeAt(0);
+                        }
+                        this.bind[hash] = this.keys[k];
+                    }
+                    else {
+                        this.bind[k.charCodeAt(0)] = this.keys[k];
+                    }
+                }
+            }
+
+            KeyBind.prototype.isBindKey = function(e) {
+                if (e.ctrlKey || e.altKey || e.metaKey) return false;
+
+                var find = false;
+                for (var k in this.keys) {
+                    if((k.indexOf('+')+1)) continue;
+
+                    if(k.charCodeAt(0) == e.keyCode) {
+                        find = true;
+                        break;
+                    }
+                }
+
+                return find;
+            }
+
+            KeyBind.prototype.sendCommand = function(command) {
+                    
+
+                    var _this = this;
+
+                    if(this.interval) 
+                        clearInterval(this.interval);
+                    
+
+                    this.interval = setInterval(function() {
+
+                        if(sockets && sockets.isConnected()) {
+                            sockets.send(command);
+                            clearInterval(_this.interval);
+                            _this.interval = null;
+
+                            console.log("sendCommand: "+command);
+                        } else {
+                            if(!sockets || !sockets.isConnecting()) {
+                                if(!sockets) { 
+                                    sockets = new Sockets(); 
+                                }
+                                else { 
+                                    sockets.open(); 
+                                }
+                            }
+                        }
+                    },200);
+
+                    
+
+            }
+
+
+            return KeyBind;
+          })();
+
+          var keys = new KeyBind({
+                'W':"up",
+                'A':"left",
+                'S':"down",
+                'D':"right",
+                'W+A':"upleft",
+                'W+D':"upright",
+                'S+A':"downleft",
+                'S+D':"downright",
+                'h':"up",
+                'd':"left",
+                'b':"down",
+                'f':"right",
+                'g':"upleft",
+                'i':"upright",
+                'a':"downleft",
+                'c':"downright"
+                }),
+            
+            sockets;
+
+            window.addEventListener("load",function() {
+                sockets = new Sockets();
+            });
+
+            window.addEventListener("unload",function() {
+                sockets.close();
+            });
+
+            
+            
+
+
+
+            (function() { //tabs
+                var tab_video_show = document.getElementById("tab_video_show"),
+                tab_video_hide = document.getElementById("tab_video_hide"),
+                stream = document.createElement('img');
+
+                stream.className = "stream__image";
+                stream.id = "stream";
+                stream.onerror = function () {
+                    document.getElementById("stram_container").innerHTML = '<span id="stream" class="label label-info">Невозможно получить изображение</span>';
+                }
+                
+
+                function set_active(element) {
+                    var activeClass = " active";
+
+                    if(element.className.indexOf(activeClass) + 1) return false;
+
+                    var child = element.parentElement.childNodes;
+                    
+                    for(var i=0;i<child.length;i++) {
+                        if(!child[i].className) continue;
+
+                        child[i].className = child[i].className.replace(activeClass,'');
+                    }
+
+                    element.className += activeClass;
+                    return true;
+                }
+
+
+                tab_video_show.addEventListener("click", function() {
+                    if(!set_active(this)) return false;
+
+
+
+                    document.getElementById("stram_container").appendChild(stream);
+                    stream.src = "/stream";
+                });
+
+                tab_video_hide.addEventListener("click", function() {
+                    if(!set_active(this)) return false;
+
+                    document.getElementById("stream").remove();
+                });
+
+            })();
+        })();
+</script>
+</body>
+</html>

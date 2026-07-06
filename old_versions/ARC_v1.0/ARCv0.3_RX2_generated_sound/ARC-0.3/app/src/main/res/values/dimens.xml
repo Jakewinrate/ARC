@@ -1,4 +1,0 @@
-<resources>
-    <dimen name="toast_border_radius">3dp</dimen>
-    <dimen name="toggle_border_width">10dp</dimen>
-</resources>

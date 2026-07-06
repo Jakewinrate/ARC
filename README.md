@@ -1,6 +1,4 @@
-# ARC v1.0 Old Archive
-
-Historical archive of the old ARC Android robot/controller project.
+# ARC v1.0 
 
 ## ARCv0.3_RX2_generated_sound
 

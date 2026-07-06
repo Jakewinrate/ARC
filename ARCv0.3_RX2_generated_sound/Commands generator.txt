@@ -1,0 +1,49 @@
+База команд 
+
+Cобирается база данных команд радиоуправляемых игрушек на основе микросхем типа RX разных версий. 
+Это необходимо для большей универсальности приложения. В будущем они будут внесены в ARC.
+
+RX2
+
+ mControl.addCommand("up", 10);
+ mControl.addCommand("down", 40);
+ mControl.addCommand("left", 58);
+ mControl.addCommand("right", 64);
+ mControl.addCommand("downleft", 52);
+ mControl.addCommand("downright", 46);
+ mControl.addCommand("upright", 34);
+ mControl.addCommand("upleft", 28);
+
+ private short HIGH = 32767;
+ private short LOW = -32767;
+
+Integer.parseInt(sp.getString("audio_w1", "33")),
+Integer.parseInt(sp.getString("audio_w2", "100")),
+
+RX2C
+
+ mControl.addCommand("up", 10);
+ mControl.addCommand("down", 40);
+ mControl.addCommand("left", 58);
+ mControl.addCommand("right", 64);
+ mControl.addCommand("downleft", 52);
+ mControl.addCommand("downright", 46);
+ mControl.addCommand("upright", 34);
+ mControl.addCommand("upleft", 28);
+
+ private short HIGH = 32767;
+ private short LOW = -32767;
+
+Integer.parseInt(sp.getString("audio_w1", "26")),
+Integer.parseInt(sp.getString("audio_w2", "76")),
+
+
+
+
+
+Если настройки из базы не подошли вы можете внести измения самостоятельно по инструкции:
+
+
+rx2 33/100
+rx2b 26/76
+
